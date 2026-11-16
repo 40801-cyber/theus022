@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CadêMeuCelular? | Nunca Mais Perca Seu Smartphone</title>
+  <meta name="description" content="O aplicativo definitivo instalado no seu celular para localizar seu aparelho em segundos, mesmo se estiver no silencioso ou sem internet.">
+  
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300F59B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect width='14' height='20' x='5' y='2' rx='2' ry='2'/><path d='M12 18h.01'/></svg>">
+</head>
+<body>
+
+  <!-- ========================================================================
+       INTRODUÇÃO DE ALTO IMPACTO (O GANCHO DOS 5 SEGUNDOS)
+       ======================================================================== -->
+  <aside id="cinematicIntro" class="cinematic-overlay" role="dialog" aria-modal="true" aria-label="Simulação de Perda do Celular">
+    <div class="cinematic-box">
+      <!-- Tag de Atenção Máxima -->
+      <div class="cinematic-tag">
+        <span class="cinematic-dot"></span>
+        Alerta de Atenção Máxima
+      </div>
+
+      <!-- Passo 1: O Choque Inicial -->
+      <div id="introStep1" class="cinematic-step active">
+        <h2 class="cinematic-title gradient-alert-text">
+          "VOCÊ PODE PERDER TUDO EM 5 SEGUNDOS."
+        </h2>
+        <p class="cinematic-desc">
+          Seu celular desapareceu. Você não sabe onde está. E agora?
+        </p>
+        <div class="cinematic-timer">
+          <span>Simulando ocorrência...</span>
+          <div class="timer-bar-wrapper">
+            <div id="introTimerBar" class="timer-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 2: O Alívio e a Reflexão -->
+      <div id="introStep2" class="cinematic-step">
+        <h2 class="cinematic-title gradient-text">
+          Calma. Isso ainda é só uma simulação.
+        </h2>
+        <p class="cinematic-desc">
+          Mas e se acontecesse de verdade? Suas conversas, senhas de banco, fotos e compromissos... você estaria preparado para recuperar seu celular agora?
+        </p>
+        <button id="btnEnterSite" class="btn btn-primary btn-pulse" style="margin-top: 1rem;">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+          VER COMO SE PROTEGER AGORA
+        </button>
+      </div>
+
+      <div style="margin-top: 2rem;">
+        <button id="btnSkipIntro" class="btn-skip-intro">Pular Simulação ✕</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       CABEÇALHO / NAVBAR FIXA
+       ======================================================================== -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="#" class="logo-wrapper" aria-label="CadêMeuCelular? Página Inicial">
+        <div class="logo-icon">
+          <div class="logo-radar-pulse"></div>
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+            <rect width="14" height="20" x="5" y="2" rx="2" ry="2"/>
+            <path d="M12 18h.01"/>
+            <path d="M12 6a4 4 0 0 1 4 4"/>
+          </svg>
+        </div>
+        <span class="logo-text">CadêMeu<span>Celular?</span></span>
+      </a>
+
+      <nav aria-label="Navegação principal">
+        <ul class="nav-links">
+          <li><a href="#problema">O Problema</a></li>
+          <li><a href="#solucao">Como Funciona</a></li>
+          <li><a href="#beneficios">Benefícios</a></li>
+          <li><a href="#duvidas">Dúvidas Comuns</a></li>
+          <li><a href="#oferta">Garantir App</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button id="btnSoundToggle" class="sound-toggle-btn" title="Alternar efeitos sonoros de radar e alarme" aria-label="Efeitos Sonoros">
+          <svg id="soundIconOn" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          </svg>
+          <svg id="soundIconOff" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <line x1="23" y1="9" x2="17" y2="15"/>
+            <line x1="17" y1="9" x2="23" y2="15"/>
+          </svg>
+        </button>
+
+        <a href="#oferta" class="btn btn-primary" style="padding: 0.75rem 1.4rem; font-size: 0.9rem;">
+          INSTALAR AGORA
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ======================================================================
+         SEÇÃO 1 — A PRIMEIRA IMPRESSÃO (HERO SECTION)
+         ====================================================================== -->
+    <section class="hero-section">
+      <div class="hero-glow-sphere"></div>
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <!-- Alerta de Urgência Ética -->
+          <div class="urgency-badge">
+            <span class="pulse-ring"></span>
+            PREVENÇÃO INTELIGENTE PARA SEU SMARTPHONE
+          </div>
+
+          <!-- Título Gigante Obrigatório -->
+          <h1 class="hero-title">
+            VOCÊ SABE ONDE ESTÁ <span class="gradient-text">SEU CELULAR AGORA?</span>
+          </h1>
+
+          <!-- Subtítulo Obrigatório -->
+          <p class="hero-subtitle">
+            Imagine precisar do seu celular urgentemente e não conseguir encontrá-lo. E se você pudesse ter uma maneira mais fácil de localizá-lo?
+          </p>
+
+          <!-- Botão Chamativo Obrigatório -->
+          <div class="hero-cta-box">
+            <a href="#quiz" class="btn btn-primary btn-pulse">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/>
+                <polygon points="10 8 16 12 10 16 10 8"/>
+              </svg>
+              QUERO CONHECER O CADÊMEUCELULAR?
+            </a>
+
+            <div class="guarantee-microtext">
+              <div class="guarantee-item">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Ativação em 1 minuto
+              </div>
+              <div class="guarantee-item">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Toca mesmo no silencioso
+              </div>
+              <div class="guarantee-item">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Privacidade 100% blindada
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual Hero: Mockup do Smartphone com Radar Ativo e Imagem Realista -->
+        <div class="hero-visual">
+          <div class="phone-mockup-outer">
+            <div class="phone-notch">
+              <div class="phone-speaker"></div>
+              <div class="phone-camera"></div>
+            </div>
+
+            <div class="phone-screen">
+              <div class="radar-display">
+                <div class="radar-circle">
+                  <div class="radar-sweep"></div>
+                  <div class="radar-target-dot" title="Aparelho rastreado"></div>
+                </div>
+              </div>
+
+              <div class="phone-status-card">
+                <div class="phone-status-title">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                  CadêMeuCelular? Ativo
+                </div>
+                <div class="phone-status-desc">
+                  Pronto para responder a comandos sonoros e localização instantânea
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Flutuante de Alerta do Mundo Real -->
+          <div class="floating-alert-badge">
+            <div class="alert-badge-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <div class="alert-badge-text">
+              <strong>Celular no Silencioso?</strong>
+              O alarme inteligente toca no volume máximo para você encontrar.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         5. DIFERENCIAL CRIATIVO — EXPERIÊNCIA INTERATIVA NA PRIMEIRA PÁGINA
+         ====================================================================== -->
+    <section id="quiz" class="interactive-quiz-section">
+      <div class="container">
+        <div class="quiz-card">
+          <div class="quiz-header-badge">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            Diagnóstico Rápido de Proteção
+          </div>
+
+          <!-- Pergunta Obrigatória -->
+          <h2 class="quiz-question">
+            "Se você perdesse seu celular agora, saberia como encontrá-lo?"
+          </h2>
+
+          <!-- Respostas Obrigatórias -->
+          <div class="quiz-options">
+            <button id="btnQuizYes" class="quiz-btn quiz-btn-yes" type="button">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Sim, sei o que fazer.
+            </button>
+            <button id="btnQuizNo" class="quiz-btn quiz-btn-no" type="button">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Não faço ideia!
+            </button>
+          </div>
+
+          <!-- Resposta Personalizada 1 (Para quem marcou 'Sim, sei o que fazer') -->
+          <div id="quizResultYes" class="quiz-result-box result-card-yes">
+            <div class="quiz-result-title" style="color: var(--accent-cyan);">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              A maioria das pessoas acha que sabe, até a hora do desespero!
+            </div>
+            <p class="quiz-result-text">
+              Você provavelmente pensou em: <em>"Vou pedir para alguém ligar para o meu número"</em> ou <em>"Vou logar na conta do Google ou da Apple pelo computador"</em>. Mas veja as armadilhas comuns:
+              <br>• Se o aparelho estiver no <strong>modo silencioso ou 'Não Perturbe'</strong>, as ligações não farão barulho.
+              <br>• Se você tentar acessar sua conta pelo computador, o sistema frequentemente pedirá <strong>autenticação em dois fatores enviada para o próprio celular sumido!</strong>
+              <br>• O <strong>CadêMeuCelular?</strong> resolve isso: ele rompe o modo silencioso com um alarme prioritário sonoro e visual acionável com simplicidade total.
+            </p>
+            <a href="#solucao" class="quiz-result-cta">Ver como o aplicativo supera os métodos tradicionais →</a>
+          </div>
+
+          <!-- Resposta Personalizada 2 (Para quem marcou 'Não faço ideia!') -->
+          <div id="quizResultNo" class="quiz-result-box result-card-no">
+            <div class="quiz-result-title" style="color: #ff6b8b;">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Essa honestidade pode salvar você de um prejuízo de milhares de reais!
+            </div>
+            <p class="quiz-result-text">
+              Não saber como reagir no momento da perda é o principal motivo pelo qual as pessoas demoram horas — ou até desistem de procurar um aparelho que estava simplesmente esquecido embaixo do banco do carro, na almofada do sofá ou na mesa do trabalho.
+              <br>Sem uma ferramenta preparada antes do imprevisto, o estresse toma conta, compromissos são perdidos e a ansiedade dispara.
+              <br>O <strong>CadêMeuCelular?</strong> foi criado justamente para ser a sua segurança automática: você instala uma única vez e ganha o poder de fazer seu celular se anunciar em segundos!
+            </p>
+            <a href="#oferta" class="quiz-result-cta">Proteger meu aparelho antes que eu esqueça onde deixei →</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SEÇÃO 2 — O PROBLEMA
+         ====================================================================== -->
+    <section id="problema" class="problem-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Identificação Real
+          </div>
+          <h2 class="section-title">Isso pode acontecer com qualquer pessoa!</h2>
+          <p class="section-subtitle">
+            O celular hoje não é apenas um telefone. Ele guarda seu dinheiro, suas conversas de trabalho, suas memórias e sua rotina. Perder o aparelho — mesmo por 15 minutos — paralisa sua vida.
+          </p>
+        </div>
+
+        <!-- Situações Comuns Exigidas -->
+        <div class="situations-grid">
+          <div class="situation-card">
+            <div class="situation-icon">
+              <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <h3 class="situation-title">Você procura pela casa inteira</h3>
+            <p class="situation-desc">
+              Revira gavetas, almofadas do sofá, bolsas, jaquetas e cesto de roupas. O tempo passa e a sensação de impotência só cresce.
+            </p>
+          </div>
+
+          <div class="situation-card">
+            <div class="situation-icon">
+              <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+            </div>
+            <h3 class="situation-title">Esquece onde deixou o aparelho</h3>
+            <p class="situation-desc">
+              No carro, no balcão da padaria, na mesa da reunião ou na casa de um amigo. Aquela dúvida terrível: <em>"Foi roubado ou só esquecido?"</em>
+            </p>
+          </div>
+
+          <div class="situation-card">
+            <div class="situation-icon">
+              <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h3 class="situation-title">Precisa dele urgentemente</h3>
+            <p class="situation-desc">
+              Um código SMS para autorizar uma transferência Pix urgente, o horário de embarque de uma viagem ou uma ligação inadiável da família.
+            </p>
+          </div>
+
+          <div class="situation-card">
+            <div class="situation-icon">
+              <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+            </div>
+            <h3 class="situation-title">Perde tempo precioso</h3>
+            <p class="situation-desc">
+              Minutos de desespero procurando algo que deveria estar na sua mão. O dia começa atrasado e o estresse estraga todo o resto da sua semana.
+            </p>
+          </div>
+        </div>
+
+        <!-- Storytelling Realista -->
+        <div class="storytelling-card">
+          <div class="story-badge">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Relato Real: "Aquele frio na espinha que quase custou meu emprego"
+          </div>
+          <h3 class="story-title">"Faltavam 20 minutos para a apresentação mais importante do ano..."</h3>
+          <div class="story-body">
+            <p>
+              <em>"Eram 8h10 da manhã. Eu estava pronto para sair de casa para fechar um contrato decisivo. Peguei a pasta, as chaves... mas onde estava o celular?</em>
+            </p>
+            <p>
+              <em>Coloquei a mão em todos os bolsos. Nada. Pedi para minha esposa ligar. Ela ligou três vezes. Silêncio absoluto — eu sempre deixo no modo silencioso para dormir. O coração disparou, comecei a suar frio revirando sofás, colchões, carro. A sensação de impotência foi desesperadora. O celular tinha todas as anotações e a chave do token bancário da empresa."</em>
+            </p>
+            <p>
+              <span class="story-highlight">"O aparelho estava simplesmente caído entre os bancos do carro.</span> Perdi a reunião, cheguei com 45 minutos de atraso e passei o maior vexame da minha carreira. Se eu tivesse uma forma rápida de acionar um toque alto imediatamente, tudo teria sido resolvido em 10 segundos."
+            </p>
+          </div>
+          <div class="story-author">
+            <div class="author-avatar">MR</div>
+            <div class="author-info">
+              <h5>Marcelo Ramos</h5>
+              <span>Gerente de Vendas & Usuário CadêMeuCelular?</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comparação Obrigatória: Sem Solução vs Com Solução -->
+        <div class="comparison-container">
+          <div class="comparison-card comparison-bad">
+            <div class="comparison-header">
+              <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <h4>SEM O CADÊMEUCELULAR?</h4>
+            </div>
+            <ul class="comparison-list">
+              <li class="comparison-item">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <span><strong>Desespero total:</strong> Você não sabe se esqueceu ou se foi furtado.</span>
+              </li>
+              <li class="comparison-item">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <span><strong>Silencioso inútil:</strong> Pedir para ligarem não adianta nada se o volume estiver zerado.</span>
+              </li>
+              <li class="comparison-item">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <span><strong>Atrasos e estresse:</strong> Você perde compromissos e gasta horas revirando móveis.</span>
+              </li>
+              <li class="comparison-item">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <span><strong>Vulnerabilidade:</strong> Se estiver em local público, qualquer pessoa pode pegar antes de você achar.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="comparison-card comparison-good">
+            <div class="comparison-header">
+              <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="20 6 9 17 4 12"/></svg>
+              <h4>COM O CADÊMEUCELULAR?</h4>
+            </div>
+            <ul class="comparison-list">
+              <li class="comparison-item">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong>Paz e controle:</strong> Você sabe exatamente como agir no primeiro segundo.</span>
+              </li>
+              <li class="comparison-item">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong>Rompe o silencioso:</strong> O aplicativo ignora o modo 'Não Perturbe' e dispara um alarme no volume 100%.</span>
+              </li>
+              <li class="comparison-item">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong>Encontro em segundos:</strong> Guiado pelo som ou pelo radar de aproximação sem complicação.</span>
+              </li>
+              <li class="comparison-item">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong>Segurança ativa:</strong> Você previne uma dor de cabeça cara com apenas 1 clique de preparação.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SEÇÃO 3 — APRESENTAÇÃO DA SOLUÇÃO (COM SIMULADOR INTERATIVO AO VIVO)
+         ====================================================================== -->
+    <section id="solucao" class="solution-section">
+      <div class="container solution-grid">
+        <div class="solution-info">
+          <div class="section-tag">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Tecnologia de Praticidade
+          </div>
+
+          <h2 class="section-title">
+            Conheça o <span class="gradient-text">CadêMeuCelular?</span>
+          </h2>
+
+          <p class="section-subtitle">
+            Desenvolvido para ser a solução mais rápida, prática e intuitiva do mercado. Instalado diretamente no seu smartphone, ele transforma seu aparelho em um dispositivo autolocalizável com comandos imediatos.
+          </p>
+
+          <div class="feature-pill-list">
+            <div class="feature-pill-item">
+              <div class="feature-pill-icon">
+                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              </div>
+              <div class="feature-pill-content">
+                <h5>Toque Anti-Silencioso de Emergência</h5>
+                <p>Mesmo que o telefone esteja no silencioso ou vibração, o aplicativo eleva a reprodução sonora ao máximo instantaneamente.</p>
+              </div>
+            </div>
+
+            <div class="feature-pill-item">
+              <div class="feature-pill-icon">
+                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+              </div>
+              <div class="feature-pill-content">
+                <h5>Radar de Proximidade & Sinal Sonoro</h5>
+                <p>Emita bipes ritmados que aumentam de frequência conforme você se aproxima do local exato onde ele caiu.</p>
+              </div>
+            </div>
+
+            <div class="feature-pill-item">
+              <div class="feature-pill-icon">
+                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="feature-pill-content">
+                <h5>Localização Geográfica Rápida</h5>
+                <p>Veja a última posição registrada com alta precisão para saber em qual estabelecimento ou endereço o celular foi deixado.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIMULADOR INTERATIVO AO VIVO DO APLICATIVO -->
+        <div class="interactive-simulator-wrapper">
+          <div class="simulator-header">
+            <h4>Experimente o Aplicativo Agora</h4>
+            <p>Clique nos botões abaixo para simular a resposta do celular em tempo real:</p>
+          </div>
+
+          <div class="sim-phone-frame">
+            <div id="simScreen" class="sim-screen">
+              <!-- Ondas Sonoras Visuais -->
+              <div id="simSoundwaves" class="sim-soundwaves">
+                <div class="wave-ring"></div>
+                <div class="wave-ring"></div>
+                <div class="wave-ring"></div>
+              </div>
+
+              <!-- Top Indicator -->
+              <div class="sim-status-indicator">
+                <span>9:41</span>
+                <span>● 4G / Wi-Fi</span>
+                <span id="simBattery">98% ⚡</span>
+              </div>
+
+              <!-- Center Display -->
+              <div class="sim-center-content">
+                <div class="sim-app-icon">
+                  <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                </div>
+                <div id="simStatusTitle" class="sim-screen-title">CadêMeuCelular?</div>
+                <div id="simStatusSub" class="sim-screen-status">Sistema em Espera Ativa</div>
+              </div>
+
+              <!-- Action Buttons Inside Mockup -->
+              <div class="sim-controls-grid">
+                <button id="btnSimAlarm" class="sim-action-btn" type="button">
+                  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                  <span id="btnSimAlarmText">Disparar Alarme Anti-Silencioso</span>
+                </button>
+
+                <button id="btnSimRadar" class="sim-action-btn" type="button">
+                  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
+                  Testar Radar de Proximidade
+                </button>
+
+                <button id="btnSimMap" class="sim-action-btn" type="button">
+                  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/></svg>
+                  Ver Última Coordenada GPS
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SEÇÃO 4 — BENEFÍCIOS
+         ====================================================================== -->
+    <section id="beneficios" class="benefits-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Transformação na Sua Rotina
+          </div>
+          <h2 class="section-title">O que você ganha ao proteger seu aparelho?</h2>
+          <p class="section-subtitle">
+            Mais do que tecnologia, o CadêMeuCelular? entrega o luxo mais valioso do mundo moderno: a tranquilidade de nunca mais ficar na mão.
+          </p>
+        </div>
+
+        <!-- 5 Benefícios Obrigatórios com Destaque -->
+        <div class="benefits-grid">
+          <!-- 1. Mais tranquilidade no dia a dia -->
+          <div class="benefit-card">
+            <div class="benefit-icon-wrapper">
+              <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3 class="benefit-title">Mais tranquilidade no dia a dia</h3>
+            <p class="benefit-description">
+              Adeus taquicardia e suor frio ao bater no bolso e não sentir o celular. Você sabe que tem um método infalível e preparado para trazê-lo de volta.
+            </p>
+          </div>
+
+          <!-- 2. Facilidade para encontrar o aparelho -->
+          <div class="benefit-card">
+            <div class="benefit-icon-wrapper">
+              <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <h3 class="benefit-title">Facilidade para encontrar o aparelho</h3>
+            <p class="benefit-description">
+              Comandos limpos e objetivos. Sem telas confusas, sem senhas esquecidas e sem depender de processos burocráticos quando cada segundo conta.
+            </p>
+          </div>
+
+          <!-- 3. Menos tempo perdido procurando -->
+          <div class="benefit-card">
+            <div class="benefit-icon-wrapper">
+              <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h3 class="benefit-title">Menos tempo perdido procurando</h3>
+            <p class="benefit-description">
+              Pesquisas indicam que uma pessoa perde em média 15 a 30 minutos por semana procurando o celular pela casa. Elimine esse desperdício de tempo da sua vida.
+            </p>
+          </div>
+
+          <!-- 4. Mais praticidade na rotina -->
+          <div class="benefit-card">
+            <div class="benefit-icon-wrapper">
+              <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <h3 class="benefit-title">Mais praticidade na rotina</h3>
+            <p class="benefit-description">
+              Aplicativo extremamente leve que não gasta bateria em segundo plano e opera em perfeita harmonia com suas atividades diárias.
+            </p>
+          </div>
+
+          <!-- 5. Uma solução para situações inesperadas -->
+          <div class="benefit-card">
+            <div class="benefit-icon-wrapper">
+              <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <h3 class="benefit-title">Uma solução para imprevistos</h3>
+            <p class="benefit-description">
+              Esteja você atrasado para pegar um voo, saindo de um restaurante lotado ou prestes a entrar em uma reunião com clientes. A resposta está sempre pronta.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SEÇÃO 5 — QUEBRA DE OBJEÇÕES (TRANSPARÊNCIA TOTAL)
+         ====================================================================== -->
+    <section id="duvidas" class="faq-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Transparência & Verdade
+          </div>
+          <h2 class="section-title">Perguntas Frequentes & Respostas Diretas</h2>
+          <p class="section-subtitle">
+            Sem promessas falsas. Veja exatamente como o aplicativo funciona e tire todas as suas dúvidas antes de instalar.
+          </p>
+        </div>
+
+        <div class="faq-container">
+          <!-- Objeção 1: É difícil de usar? -->
+          <div class="faq-item active">
+            <button class="faq-trigger" type="button">
+              <span>É difícil de usar?</span>
+              <div class="faq-icon-arrow">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </button>
+            <div class="faq-content">
+              Não, de forma alguma! O CadêMeuCelular? foi desenhado com foco em simplicidade máxima. Após a instalação rápida guiada passo a passo (que leva menos de 2 minutos), o aplicativo fica configurado e você não precisa se preocupar com ajustes diários.
+            </div>
+          </div>
+
+          <!-- Objeção 2: Como funciona? -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button">
+              <span>Como funciona exatamente?</span>
+              <div class="faq-icon-arrow">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </button>
+            <div class="faq-content">
+              O aplicativo fica ativo no sistema em modo econômico. Quando você não encontra o aparelho, pode acioná-lo de forma remota (via navegador em qualquer outro aparelho ou por palavra-chave enviada por SMS seguro). Ele imediatamente passa por cima de qualquer trava de volume ou modo silencioso, tocando um alarme alto e exibindo sua localização no mapa.
+            </div>
+          </div>
+
+          <!-- Objeção 3: Preciso de internet? -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button">
+              <span>Preciso de internet para encontrar o celular?</span>
+              <div class="faq-icon-arrow">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </button>
+            <div class="faq-content">
+              Para ver o mapa em tempo real é recomendada conexão de dados (Wi-Fi ou 4G/5G). Contudo, se o celular estiver sem internet ou com sinal fraco, o recurso de <strong>Disparo de Alarme por SMS de Emergência</strong> funciona sem precisar de pacote de dados ativo, garantindo que o som continue tocando alto para você achá-lo.
+            </div>
+          </div>
+
+          <!-- Objeção 4: É compatível com meu celular? -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button">
+              <span>É compatível com meu celular?</span>
+              <div class="faq-icon-arrow">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </button>
+            <div class="faq-content">
+              Sim! O CadêMeuCelular? é plenamente compatível com smartphones Android (versão 8.0 ou superior) e aparelhos iOS (iPhone com iOS 14 ou superior), funcionando perfeitamente em marcas populares como Samsung, Motorola, Xiaomi e Apple.
+            </div>
+          </div>
+
+          <!-- Objeção 5: O aplicativo protege minha privacidade? -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button">
+              <span>O aplicativo protege minha privacidade?</span>
+              <div class="faq-icon-arrow">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </button>
+            <div class="faq-content">
+              Com certeza e com total rigor ético. Nós não vendemos seus dados para empresas de publicidade, não temos acesso a suas mensagens pessoais, fotos ou contas bancárias. O rastreamento só é ativado quando você solicita expressamente para localizar seu próprio aparelho com sua chave secreta pessoal.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SEÇÃO 6 — OFERTA COMERCIAL (PREÇOS, CONDIÇÕES E GARANTIA)
+         ====================================================================== -->
+    <section id="oferta" class="offer-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag" style="background: rgba(0, 245, 155, 0.15); color: var(--accent-green);">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Prevenção Inteligente
+          </div>
+
+          <!-- Título Obrigatório da Oferta -->
+          <h2 class="section-title">
+            Não espere perder seu celular para perceber a importância de encontrá-lo!
+          </h2>
+          <p class="section-subtitle">
+            Um celular novo custa entre R$ 1.500 e R$ 7.000. Proteger seu aparelho e suas informações custa menos do que um cafezinho por mês.
+          </p>
+        </div>
+
+        <!-- Planos Comerciais -->
+        <div class="offer-cards-grid">
+          <!-- Plano 1: Individual Anual -->
+          <div class="pricing-card">
+            <div class="plan-header">
+              <h3 class="plan-name">Proteção Anual Individual</h3>
+              <p class="plan-desc">Ideal para quem deseja proteger o próprio smartphone com custo acessível.</p>
+            </div>
+
+            <div class="plan-price-box">
+              <span class="plan-old-price">De R$ 97,00</span>
+              <div class="plan-price">
+                <small>R$</small> 49<small>,90</small>
+              </div>
+              <div class="plan-price-period">Acesso completo por 1 ano inteiro (R$ 4,15/mês)</div>
+            </div>
+
+            <ul class="plan-features-list">
+              <li class="plan-feature-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                1 Licença para o seu Smartphone
+              </li>
+              <li class="plan-feature-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Alarme que rompe o modo silencioso
+              </li>
+              <li class="plan-feature-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Radar de aproximação por som
+              </li>
+              <li class="plan-feature-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Localização geográfica em tempo real
+              </li>
+              <li class="plan-feature-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Suporte prioritário via WhatsApp
+              </li>
+            </ul>
+
+            <button class="btn btn-secondary btn-open-checkout" data-plan="Individual Anual" data-price="R$ 49,90" type="button">
+              QUERO PROTEGER MEU CELULAR
+            </button>
+          </div>
+
+          <!-- Plano 2: Família Vitalício (Destaque) -->
+          <div class="pricing-card featured">
+            <div class="featured-ribbon">Mais Escolhido & Econômico</div>
+            
+            <div class="plan-header">
+              <h3 class="plan-name">Plano Familiar Vitalício</h3>
+              <p class="plan-desc">Proteção definitiva para você e sua família, sem mensalidades futuras.</p>
+            </div>
+
+            <div class="plan-price-box">
+              <span class="plan-old-price">De R$ 197,00</span>
+              <div class="plan-price">
+                <small>R$</small> 89<small>,90</small>
+              </div>
+              <div class="plan-price-period">Pagamento único • Licença vitalícia sem mensalidades</div>
+            </div>
+
+            <ul class="plan-features-list">
+              <li class="plan-feature-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                <strong>Até 4 Celulares protegidos ao mesmo tempo</strong>
+              </li>
+              <li class="plan-feature-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Alarme anti-silencioso com potência máxima
+              </li>
+              <li class="plan-feature-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Acionamento de emergência via SMS (offline)
+              </li>
+              <li class="plan-feature-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Radar de proximidade de alta precisão
+              </li>
+              <li class="plan-feature-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Atualizações perpétuas inclusas
+              </li>
+            </ul>
+
+            <!-- Botão Obrigatório da Seção -->
+            <button class="btn btn-primary btn-pulse btn-open-checkout" data-plan="Familiar Vitalício" data-price="R$ 89,90" type="button">
+              QUERO TER MAIS TRANQUILIDADE!
+            </button>
+          </div>
+        </div>
+
+        <!-- Selo de Garantia Incondicional de 30 Dias -->
+        <div class="guarantee-box">
+          <div class="guarantee-badge-shield">
+            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <div class="guarantee-text">
+            <h5>Garantia Incondicional de Risco Zero por 30 Dias</h5>
+            <p>
+              Instale, teste e sinta a segurança no seu dia a dia. Se por qualquer motivo você achar que o aplicativo não trouxe mais praticidade e tranquilidade para sua vida, basta nos enviar um e-mail em até 30 dias que devolveremos 100% do seu dinheiro. Sem letras miúdas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SEÇÃO 7 — CHAMADA FINAL
+         ====================================================================== -->
+    <section class="final-cta-section">
+      <div class="container">
+        <div class="final-cta-card">
+          <div class="hero-glow-sphere"></div>
+          
+          <div class="urgency-badge" style="margin-bottom: 1.5rem;">
+            <span class="pulse-ring"></span>
+            A PREVENÇÃO É SEMPRE MAIS INTELIGENTE QUE O PREJUÍZO
+          </div>
+
+          <!-- Título Obrigatório da Chamada Final -->
+          <h2 class="final-title">
+            "Seu celular é importante demais para você ficar sem saber onde ele está."
+          </h2>
+
+          <!-- Subtítulo Obrigatório da Chamada Final -->
+          <p class="final-subtitle">
+            Conheça o CadêMeuCelular? e descubra uma maneira mais prática de encontrar seu aparelho.
+          </p>
+
+          <!-- Botão Final Obrigatório -->
+          <a href="#oferta" class="btn btn-primary btn-pulse" style="font-size: 1.15rem; padding: 1.25rem 2.8rem;">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            QUERO CONHECER O APLICATIVO!
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       MODAL DE CHECKOUT & ATIVAÇÃO IMEDIATA
+       ======================================================================== -->
+  <div id="checkoutModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button id="btnCloseModal" class="modal-close-btn" aria-label="Fechar Janela">✕</button>
+
+      <div class="modal-header">
+        <h3 id="modalTitle">Ativação Segura</h3>
+        <p>Preencha os dados para receber seu link de download imediato</p>
+      </div>
+
+      <div class="checkout-plan-summary">
+        <div>
+          <strong id="modalPlanName" style="color:#ffffff;">Plano Familiar Vitalício</strong>
+          <div style="font-size:0.8rem; color:var(--text-muted);">Acesso vitalício sem mensalidades</div>
+        </div>
+        <div id="modalPlanPrice" style="font-size: 1.3rem; font-weight:800; color:var(--accent-green);">
+          R$ 89,90
+        </div>
+      </div>
+
+      <div class="checkout-payment-methods">
+        <button id="tabPix" class="payment-tab active" type="button">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Pix Imediato
+        </button>
+        <button id="tabCard" class="payment-tab" type="button">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          Cartão até 12x
+        </button>
+      </div>
+
+      <!-- Área Pix -->
+      <div id="pixContainer" class="pix-box">
+        <div class="qr-code-placeholder">
+          <svg viewBox="0 0 100 100" fill="#02040a">
+            <rect x="0" y="0" width="30" height="30"/>
+            <rect x="4" y="4" width="22" height="22" fill="#fff"/>
+            <rect x="8" y="8" width="14" height="14"/>
+            <rect x="70" y="0" width="30" height="30"/>
+            <rect x="74" y="4" width="22" height="22" fill="#fff"/>
+            <rect x="78" y="8" width="14" height="14"/>
+            <rect x="0" y="70" width="30" height="30"/>
+            <rect x="4" y="74" width="22" height="22" fill="#fff"/>
+            <rect x="8" y="78" width="14" height="14"/>
+            <rect x="36" y="10" width="10" height="10"/>
+            <rect x="52" y="10" width="10" height="25"/>
+            <rect x="36" y="38" width="28" height="10"/>
+            <rect x="70" y="45" width="25" height="10"/>
+            <rect x="42" y="60" width="16" height="28"/>
+            <rect x="68" y="70" width="20" height="20"/>
+          </svg>
+        </div>
+        <p style="font-size:0.85rem; color:#94a3b8; margin-bottom: 0.8rem;">
+          Escaneie o QR Code ou copie o código Pix abaixo para liberação imediata:
+        </p>
+        <div class="pix-copy-box">
+          <input type="text" readonly value="00020126580014br.gov.bcb.pix0136cademeucelular-licenca-vitalicia5204000053039865802BR" class="pix-input" id="pixCodeInput">
+          <button id="btnCopyPix" class="pix-copy-btn" type="button">Copiar</button>
+        </div>
+      </div>
+
+      <!-- Área Cartão -->
+      <div id="cardContainer" style="display:none; margin-bottom: 1.5rem;">
+        <div style="display:flex; flex-direction:column; gap:0.8rem;">
+          <input type="text" placeholder="Número do Cartão de Crédito" style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:#fff;">
+          <div style="display:flex; gap:0.8rem;">
+            <input type="text" placeholder="Validade (MM/AA)" style="flex:1; padding:0.8rem; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:#fff;">
+            <input type="text" placeholder="CVV" style="flex:1; padding:0.8rem; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:#fff;">
+          </div>
+          <input type="text" placeholder="Nome Impresso no Cartão" style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:#fff;">
+        </div>
+      </div>
+
+      <button id="btnConfirmPayment" class="btn btn-primary" style="width:100%;" type="button">
+        CONFIRMAR & ATIVAR APLICATIVO
+      </button>
+
+      <div style="display:flex; align-items:center; justify-content:center; gap:0.5rem; margin-top:1rem; font-size:0.75rem; color:var(--text-dim);">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Ambiente Criptografado com SSL de 256 bits • Garantia de 30 dias
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       RODAPÉ PROFISSIONAL
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a href="#" class="logo-wrapper">
+            <div class="logo-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+                <rect width="14" height="20" x="5" y="2" rx="2" ry="2"/>
+                <path d="M12 18h.01"/>
+              </svg>
+            </div>
+            <span class="logo-text">CadêMeu<span>Celular?</span></span>
+          </a>
+          <p>
+            Tecnologia de assistência e segurança pessoal para você nunca mais perder tempo ou passar estresse procurando seu smartphone.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Navegação</h5>
+          <ul class="footer-links">
+            <li><a href="#problema">O Problema</a></li>
+            <li><a href="#solucao">Como Funciona</a></li>
+            <li><a href="#beneficios">Vantagens & Benefícios</a></li>
+            <li><a href="#duvidas">Perguntas Frequentes</a></li>
+            <li><a href="#oferta">Tabela de Preços</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Segurança & Privacidade</h5>
+          <ul class="footer-links">
+            <li><a href="#duvidas">Termos de Uso</a></li>
+            <li><a href="#duvidas">Política de Privacidade</a></li>
+            <li><a href="#duvidas">Proteção de Dados (LGPD)</a></li>
+            <li><a href="#duvidas">Garantia de 30 Dias</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 CadêMeuCelular? Tecnologia e Segurança Móvel. Todos os direitos reservados.</p>
+        <p>Aparelho localizado com praticidade, rapidez e privacidade.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       SCRIPTS JAVASCRIPT
+       ======================================================================== -->
+  <script src="js/sound.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
